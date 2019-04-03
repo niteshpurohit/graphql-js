@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -96,55 +96,6 @@ describe('Printer: Query document', () => {
         id
       }
     `);
-  });
-
-  describe('block string', () => {
-    it('correctly prints single-line with leading space', () => {
-      const mutationASTWithArtifacts = parse(
-        '{ field(arg: """    space-led value""") }',
-      );
-      expect(print(mutationASTWithArtifacts)).to.equal(dedent`
-        {
-          field(arg: """    space-led value""")
-        }
-      `);
-    });
-
-    it('correctly prints string with a first line indentation', () => {
-      const mutationASTWithArtifacts = parse(`
-        {
-          field(arg: """
-                first
-              line
-            indentation
-          """)
-        }
-      `);
-      expect(print(mutationASTWithArtifacts)).to.equal(dedent`
-        {
-          field(arg: """
-                first
-              line
-            indentation
-          """)
-        }
-      `);
-    });
-
-    it('correctly prints single-line with leading space and quotation', () => {
-      const mutationASTWithArtifacts = parse(`
-        {
-          field(arg: """    space-led value "quoted string"
-          """)
-        }
-      `);
-      expect(print(mutationASTWithArtifacts)).to.equal(dedent`
-        {
-          field(arg: """    space-led value "quoted string"
-          """)
-        }
-      `);
-    });
   });
 
   it('Experimental: correctly prints fragment defined variables', () => {
